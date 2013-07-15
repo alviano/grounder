@@ -46,6 +46,16 @@ $(BINARY): $(OBJS)
 static: $(OBJS)
 	$(LINK) $(LINKFLAGS) $(LIBS) $(OBJS) -static -o $(BINARY)
 
+
+########## Parser
+
+PARSER_SRC=\
+ ASPCore2_0.g\
+
+
+parser: $(addprefix parser_src/,$(PARSER_SRC))
+	cd parser_src; ./generate-grammar.sh $(PARSER_SRC)
+
 ########## Clean
 
 clean:
