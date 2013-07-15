@@ -1,32 +1,32 @@
-BINARY=../bin/beetle
+BINARY=bin/beetle
 GCC=g++-4.7
 CXX=$(GCC)
-CXXFLAGS=-Wall -std=c++11 -g3 -O0 -I../include -I../parser
+CXXFLAGS=-Wall -std=c++11 -g3 -O0 -Iinclude
 LINK=$(GCC)
 LINKFLAGS=-lm 
 
 SRCS = \
- parser/ASPCore2_0Lexer.cpp\
- parser/ASPCore2_0Parser.cpp\
- Atom.cpp\
- Body.cpp\
- Clonable.cpp\
- Component.cpp\
- Constraint.cpp\
- DependenciesGraph.cpp\
- Indices.cpp\
- Literal.cpp\
- NormalRule.cpp\
- Predicate.cpp\
- Program.cpp\
- Rule.cpp\
- StandardLiteral.cpp\
- StandardNegativeLiteral.cpp\
- StandardPositiveLiteral.cpp\
- StringTerm.cpp\
- Term.cpp\
- Variable.cpp\
- main.cpp\
+ src/ASPCore2_0Lexer.cpp\
+ src/ASPCore2_0Parser.cpp\
+ src/Atom.cpp\
+ src/Body.cpp\
+ src/Clonable.cpp\
+ src/Component.cpp\
+ src/Constraint.cpp\
+ src/DependenciesGraph.cpp\
+ src/Indices.cpp\
+ src/Literal.cpp\
+ src/NormalRule.cpp\
+ src/Predicate.cpp\
+ src/Program.cpp\
+ src/Rule.cpp\
+ src/StandardLiteral.cpp\
+ src/StandardNegativeLiteral.cpp\
+ src/StandardPositiveLiteral.cpp\
+ src/StringTerm.cpp\
+ src/Term.cpp\
+ src/Variable.cpp\
+ src/main.cpp\
  
 
 OBJS = $(SRCS:.cpp=.o)
@@ -46,12 +46,11 @@ static: $(OBJS)
 ########## Clean
 
 clean:
-	rm -f *.o a.out
-	rm -f gmon.out
+	rm -f $(OBJS)
+	rm -f bin/gmon.out
 
 distclean: clean
-	rm -f $(BINARY)
-	rm -f *.d
+	rm -f $(BINARY) $(DEPS)
 
 -include $(DEPS)
 

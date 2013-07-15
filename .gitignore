@@ -22,3 +22,6 @@
 # Eclipse files
 .cproject
 .project
+
+# Binary
+src/beetle
