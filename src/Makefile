@@ -1,4 +1,4 @@
-BINARY=grounder
+BINARY=beetle
 GCC=g++-4.7
 CXX=$(GCC)
 CXXFLAGS=-Wall -std=c++11 -g3 -O0 -I../include -I../parser
