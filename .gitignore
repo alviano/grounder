@@ -15,3 +15,6 @@
 
 # Backups
 *~
+
+# Mac OS Stupid files
+.DS_Store
