@@ -6,6 +6,8 @@ LINK=$(GCC)
 LINKFLAGS=-lm -lglpk
 
 SRCS = \
+ parser/ASPCore2_0Lexer.cpp\
+ parser/ASPCore2_0Parser.cpp\
  Atom.cpp\
  Body.cpp\
  Clonable.cpp\
