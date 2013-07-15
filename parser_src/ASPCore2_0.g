@@ -7,7 +7,7 @@ options
 
 @parser::includes
 {
-   #include "TLexer.hpp"   
+   #include "ASPCore2_0Lexer.hpp"   
    #include <iostream>
 }
 
@@ -16,8 +16,8 @@ options
 
 @lexer::traits 
 {
-	class TLexer; 
-	class TParser; 
+	class ASPCore2_0Lexer; 
+	class ASPCore2_0Parser; 
 
 	template<class ImplTraits>
 	class UserTraits : public antlr3::CustomTraitsBase<ImplTraits>
@@ -28,8 +28,8 @@ options
 		static const bool TOKENS_ACCESSED_FROM_OWNING_RULE = true;
 	};
 
-	typedef antlr3::Traits< TLexer, TParser, UserTraits > TLexerTraits;
-	typedef TLexerTraits TParserTraits;
+	typedef antlr3::Traits< ASPCore2_0Lexer, ASPCore2_0Parser, UserTraits > ASPCore2_0LexerTraits;
+	typedef ASPCore2_0LexerTraits ASPCore2_0ParserTraits;
 
 	/* If you don't want the override it is like this.
 	   class TLexer;
