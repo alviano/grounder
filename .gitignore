@@ -18,3 +18,7 @@
 
 # Mac OS Stupid files
 .DS_Store
+
+# Eclipse files
+.cproject
+.project
