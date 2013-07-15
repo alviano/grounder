@@ -32,7 +32,10 @@ SRCS = \
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
 
-all: $(BINARY) 
+all: bin $(BINARY)
+
+bin:
+	mkdir -p bin
 	
 %.d: %.cpp
 	$(CXX) $(CXXFLAGS) -M $< >$@
