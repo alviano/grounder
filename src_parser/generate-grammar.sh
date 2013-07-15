@@ -1,4 +1,6 @@
 #!/bin/sh
 
-java -jar ../tools/antlr-3.5-complete.jar *.g ${1+"$@"} -o ../src/parser
+DIRNAME=`dirname $0`
+
+java -jar $DIRNAME/../tools/antlr-3.5-complete.jar ${1+"$@"} $DIRNAME/*.g -o $DIRNAME/../src/parser
 
