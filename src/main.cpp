@@ -17,6 +17,7 @@
 #include "NormalRule.h"
 #include "Variable.h"
 #include "Program.h"
+#include "aspcore2.h"
 
 int main() {
     Program program;
@@ -69,6 +70,13 @@ int main() {
     program.instantiate();
 
     cout << "end" << endl;
+
+    Program p;
+    AspCore2& parser = *AspCore2::getInstance();
+    parser.parse(p);
+    cout << p;
+
+    AspCore2::free();
 
     return 0;
 }

@@ -79,11 +79,12 @@ Program::computeComponents() {
     for(unordered_map<string, Predicate>::iterator p = predicates.begin(); p != predicates.end(); ++p)
         p->second.addToComponents(positiveDependenciesGraph);
 
-    for(int i = 1, j = 1; ;) {
+    for(int i = 0, j = 0; ;) {
         assert(i < positiveDependenciesGraph.getNumberOfComponents());
         assert(j < dependenciesGraph.getNumberOfComponents());
         Component* c_i = positiveDependenciesGraph.getComponent(i);
         Component* c_j = dependenciesGraph.getComponent(j);
+        cout << *c_i << *c_j << endl;
         assert(c_i->size() > 0);
         assert(c_j->size() > 0);
         if(c_i->getIndex() == -1 && c_j->contains(c_i->front())) {
@@ -92,8 +93,12 @@ Program::computeComponents() {
 
             c_j->removeAll(*c_i);
             if(c_j->size() == 0)
-                if(++j >= dependenciesGraph.getNumberOfComponents())
+                if(++j >= dependenciesGraph.getNumberOfComponents()) {
+                    assert(i+1 == positiveDependenciesGraph.getNumberOfComponents());
+                    while(++i < positiveDependenciesGraph.getNumberOfComponents())
+                        components.push_back(positiveDependenciesGraph.getComponent(i));
                     break;
+                }
             i = 1;
         }
         else

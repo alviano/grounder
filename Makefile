@@ -6,8 +6,7 @@ LINK=$(GCC)
 LINKFLAGS=-lm 
 
 SRCS = \
- src/ASPCore2_0Lexer.cpp\
- src/ASPCore2_0Parser.cpp\
+ src/aspcore2.cpp\
  src/Atom.cpp\
  src/Body.cpp\
  src/Clonable.cpp\
@@ -49,12 +48,9 @@ static: $(OBJS)
 
 ########## Parser
 
-PARSER_SRC=\
- ASPCore2_0.g\
-
-
-parser: $(addprefix parser_src/,$(PARSER_SRC))
-	cd parser_src; ./generate-grammar.sh $(PARSER_SRC)
+parser:
+	./parser_src/make.sh
+	touch src/aspcore2.cpp
 
 ########## Clean
 

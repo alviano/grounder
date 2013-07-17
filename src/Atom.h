@@ -17,7 +17,7 @@
 class Atom {
     friend ostream& operator<<(ostream& out, const Atom& atom);
 public:
-    Atom(const Predicate& predicate, const Terms& terms);
+    Atom(const Predicate& predicate, const Terms& terms = Terms());
     virtual ~Atom();
 
     const Predicate& getPredicate() const { return predicate; }

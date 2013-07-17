@@ -136,10 +136,14 @@ typedef union YYSTYPE
     Variable* variable;
     Term* term;
     Terms* terms;
+    Atom* atom;
+    Literal* literal;
+    Literals* literals;
+    Rule* rule;
 
 
 /* Line 2053 of yacc.c  */
-#line 143 "./parser_src/aspcore2_parser.h"
+#line 147 "./parser_src/aspcore2_parser.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

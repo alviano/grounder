@@ -10,5 +10,10 @@
 Body::Body() {
 }
 
+Body::Body(
+        const Literals& init)
+: Literals(init) {
+
+}
 Body::~Body() {
 }

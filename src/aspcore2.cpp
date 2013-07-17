@@ -5,6 +5,11 @@
 #include <cstring>
 #include <iostream>
 
+#include "Atom.h"
+#include "StandardPositiveLiteral.h"
+#include "StandardNegativeLiteral.h"
+#include "NormalRule.h"
+
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -28,7 +33,6 @@ int yyerror(const char* s) // Error handler for YACC
 #include "aspcore2_lexer.hpp"
 #include "aspcore2_parser.hpp"
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Class
 
@@ -41,11 +45,24 @@ AspCore2::getInstance() {
     return instance;
 }
 
+void
+AspCore2::free() {
+    if(instance != NULL) {
+        assert(instance->program == NULL);
+        delete instance;
+        instance = NULL;
+    }
+}
+
 AspCore2::AspCore2()
 : line(0),
   errors(0),
   program(NULL) {
 
+}
+
+AspCore2::~AspCore2() {
+    assert(program == NULL);
 }
 
 int
@@ -74,6 +91,7 @@ AspCore2::onWrap() {
     return 1;
 }
 
+/*
 int
 AspCore2::parse(
     int filesSize,
@@ -109,16 +127,19 @@ AspCore2::parse(
     }
     return 0;
 }
+*/
 
 int
-AspCore2::parse() {
-    assert(program == NULL);
-    this->program = new Program();
+AspCore2::parse(
+        Program& program) {
+    assert(this->program == NULL);
+    this->program = &program;
 
     yyin = stdin;
-    this->file = "STDIN";
+    //this->file = "STDIN";
     this->line = 1;
     yyparse();
+    this->program = NULL;
 
     if(this->errors > 0) {
         cerr << "Aborting due to parser errors." << endl;
@@ -142,8 +163,7 @@ AspCore2::onVariableTerm(
 
 Term*
 AspCore2::onTerm() {
-    // FIXME
-    return NULL;
+    return onVariableTerm();
 }
 
 Term*
@@ -158,11 +178,10 @@ AspCore2::onTerm(
         const char* value) {
     assert(value != NULL);
     assert(strlen(value) > 0);
-    Term* res = NULL;
     if('A' <= value[0] && value[0] <= 'Z')
-        res = new Variable(value);
-    else
-        res = new StringTerm(program->createStringTerm(value));
+        return onVariableTerm(value);
+
+    Term* res = new StringTerm(program->createStringTerm(value));
     delete[] value;
     return res;
 }
@@ -188,4 +207,99 @@ AspCore2::onTermDash(
         Term* term) {
     // FIXME
     return NULL;
+}
+
+Terms*
+AspCore2::onTerms(
+        Term* term) {
+    Terms* res = new Terms();
+    res->push_back(term);
+    return res;
+}
+
+Terms*
+AspCore2::onTerms(
+        Terms* terms,
+        Term* term) {
+    terms->push_back(term);
+    return terms;
+}
+
+Atom*
+AspCore2::onAtom(
+        const char* value) {
+    Atom* res = new Atom(program->createPredicate(value), Terms());
+    delete[] value;
+    return res;
+}
+
+Atom*
+AspCore2::onAtom(
+        const char* value,
+        Terms* terms) {
+    Atom* res = new Atom(program->createPredicate(value), *terms);
+    delete[] value;
+    delete terms;
+    return res;
+}
+
+Literal*
+AspCore2::onNafLiteral(
+        Atom* atom,
+        bool positive) {
+    Literal* res = NULL;
+    if(positive)
+        res = new StandardPositiveLiteral(*atom);
+    else
+        res = new StandardNegativeLiteral(*atom);
+    delete atom;
+    return res;
+}
+
+Literals*
+AspCore2::onNafLiterals(
+        Literal* literal) {
+    Literals* res = new Literals();
+    res->push_back(literal);
+    return res;
+}
+
+Literals*
+AspCore2::onNafLiterals(
+        Literals* literals,
+        Literal* literal) {
+    literals->push_back(literal);
+    return literals;
+}
+
+Rule*
+AspCore2::onRule(
+        Atom* head) {
+    Rule* res = new NormalRule(*head, Body());
+    delete head;
+    return res;
+}
+
+Rule*
+AspCore2::onRule(
+        Atom* head,
+        Literals* body) {
+    Rule* res = new NormalRule(*head, *body);
+    delete head;
+    delete body;
+    return res;
+}
+
+Rule*
+AspCore2::onRule(
+        Literals* body) {
+    Rule* res = new NormalRule(Atom(program->getFalsePredicate()), *body);
+    delete body;
+    return res;
+}
+
+void
+AspCore2::addRule(
+        Rule* rule) {
+    program->addRule(rule);
 }

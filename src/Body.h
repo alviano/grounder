@@ -14,6 +14,7 @@
 class Body : public Literals {
 public:
     Body();
+    Body(const Literals& init);
     virtual ~Body();
 };
 

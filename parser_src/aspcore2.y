@@ -29,8 +29,16 @@ AspCore2* parser = AspCore2::getInstance();
     Variable* variable;
     Term* term;
     Terms* terms;
+    Atom* atom;
+    Literal* literal;
+    Literals* literals;
+    Rule* rule;
 }
 
+%type <rule> rule
+%type <literals> naf_literals conjunction body
+%type <literal> naf_literal naf_literal_aggregate
+%type <atom> atom classic_literal disjunction head
 %type <term> term term_
 %type <terms> terms
 %type <variable> variable_term
@@ -64,29 +72,34 @@ AspCore2* parser = AspCore2::getInstance();
 
 HEAD_SEPARATOR  : VEL;
 
-program   : 
-          | rules
-          | rules query
-          | error { parser->onError("Generic error"); }
-          ;
+program
+    : 
+    | rules
+    | rules query
+    | error { parser->onError("Generic error"); }
+    ;
 
-rules   : rules rule
-          | rule
-          ;
+rules
+    : rules rule { parser->addRule($2); }
+    | rule { parser->addRule($1); }
+    ;
 
-rule      : head DOT {}
-          | head CONS DOT {}
-          | head CONS body DOT {}
-          | CONS body DOT /*constraint*/ {}
-          | WCONS body DOT weight_at_levels {}
-          ;
+rule
+    : head DOT { $$ = parser->onRule($1); }
+    | head CONS DOT { $$ = parser->onRule($1); }
+    | head CONS body DOT { $$ = parser->onRule($1, $3); }
+    | CONS body DOT /*constraint*/ { $$ = parser->onRule($2); }
+    | WCONS body DOT weight_at_levels {}
+    ;
 
-head      : disjunction {}
-          | choice_atom {}
-          ;       
+head
+    : disjunction { $$ = $1; }
+    | choice_atom {}
+    ;       
 
-body      : conjunction {}
-          ;
+body
+    : conjunction { $$ = $1; }
+    ;
 
 weight_at_levels : SQUARE_OPEN term SQUARE_CLOSE {}
          | SQUARE_OPEN term levels_and_terms SQUARE_CLOSE {}
@@ -97,13 +110,15 @@ levels_and_terms : AT term {}
          | COMMA terms {} 
              ;
           
-disjunction : classic_literal {}
-        | disjunction HEAD_SEPARATOR classic_literal {}
-        ;
+disjunction
+    : classic_literal { $$ = $1; }
+    | disjunction HEAD_SEPARATOR classic_literal { $$ = $3; }
+    ;
 
-conjunction : naf_literal_aggregate {}
-        | conjunction COMMA naf_literal_aggregate {}
-            ;
+conjunction
+    : naf_literal_aggregate { $$ = parser->onNafLiterals($1); }
+    | conjunction COMMA naf_literal_aggregate { $$ = parser->onNafLiterals($1, $3); }
+    ;
 
 choice_atom : term binop CURLY_OPEN choice_elements CURLY_CLOSE binop term {}
         | term binop CURLY_OPEN choice_elements CURLY_CLOSE {}    
@@ -119,32 +134,39 @@ choice_element : atom {}
                | atom COLON naf_literals {}
                ;
 
-naf_literals : naf_literal {}
-         | naf_literals COMMA naf_literal {}
-         ;    
+naf_literals
+    : naf_literal { $$ = parser->onNafLiterals($1); }
+    | naf_literals COMMA naf_literal { $$ = parser->onNafLiterals($1, $3); }
+    ;    
           
-naf_literal  : classic_literal {}
-             | NAF classic_literal {}
-         | builtin_atom {}    
-          ;
+naf_literal
+    : classic_literal { $$ = parser->onNafLiteral($1, true); }
+    | NAF classic_literal { $$ = parser->onNafLiteral($2, false); }
+    | builtin_atom {}
+    ;
 
-naf_literal_aggregate : naf_literal {}
-                       | aggregate_atom {}
-                       | NAF aggregate_atom {}
-                       ;      
+naf_literal_aggregate
+    : naf_literal { $$ = $1; }
+    | aggregate_atom {}
+    | NAF aggregate_atom {}
+    ;      
 
-classic_literal  : atom {}
-                 | DASH atom {}
-                 ;  
+classic_literal
+    : atom { $$ = $1; }
+    | DASH atom { $$ = $2; }
+    ;  
 
-atom :    identifier
-          | identifier PARAM_OPEN terms PARAM_CLOSE {}
-          | identifier PARAM_OPEN PARAM_CLOSE {}
-          ;              
+atom
+    : identifier { $$ = parser->onAtom($1); }
+    | identifier PARAM_OPEN terms PARAM_CLOSE { $$ = parser->onAtom($1, $3); }
+    | identifier PARAM_OPEN PARAM_CLOSE { $$ = parser->onAtom($1); }
+    ;              
          
-terms    : term {}
-         | terms COMMA term    {}
-         ;
+terms
+    : term { $$ = parser->onTerms($1); }
+    | terms COMMA term { $$ = parser->onTerms($1, $3); }
+    ;
+
 basic_terms : basic_term {}
          | basic_terms COMMA basic_term    {}
          ;

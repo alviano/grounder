@@ -70,7 +70,7 @@ DependenciesGraph::computeComponents() {
     vector<boost::graph_traits<boost::adjacency_list<> >::vertex_descriptor> root(boost::num_vertices(graph));
 
     int numberOfComponents = boost::strong_components(graph, &componentIndex[0], boost::root_map(&root[0]).color_map(&color[0]).discover_time_map(&discover_time[0]));
-    while(numberOfComponents-- > 0)
+    while(numberOfComponents-- > 1)
         components.push_back(new Component());
 }
 
@@ -79,7 +79,8 @@ DependenciesGraph::getComponentIndex(
         const Predicate& p) const {
     assert(getIndex(p) >= 0);
     assert(static_cast<unsigned>(getIndex(p)) < componentIndex.size());
-    return componentIndex[getIndex(p)];
+    assert(componentIndex[getIndex(p)] >= 1);
+    return componentIndex[getIndex(p)] - 1;
 }
 
 void

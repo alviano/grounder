@@ -213,10 +213,14 @@ typedef union YYSTYPE
     Variable* variable;
     Term* term;
     Terms* terms;
+    Atom* atom;
+    Literal* literal;
+    Literals* literals;
+    Rule* rule;
 
 
 /* Line 387 of yacc.c  */
-#line 220 "./parser_src/aspcore2_parser.hpp"
+#line 224 "./parser_src/aspcore2_parser.hpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -244,7 +248,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 248 "./parser_src/aspcore2_parser.hpp"
+#line 252 "./parser_src/aspcore2_parser.hpp"
 
 #ifdef short
 # undef short
@@ -583,17 +587,17 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    65,    65,    67,    68,    69,    70,    73,    74,    77,
-      78,    79,    80,    81,    84,    85,    88,    91,    92,    95,
-      96,    97,   100,   101,   104,   105,   108,   109,   110,   111,
-     114,   115,   118,   119,   122,   123,   126,   127,   128,   131,
-     132,   133,   136,   137,   140,   141,   142,   145,   146,   148,
-     149,   154,   157,   158,   161,   162,   163,   166,   167,   168,
-     169,   173,   174,   175,   176,   177,   178,   182,   183,   186,
-     187,   191,   192,   193,   194,   198,   199,   203,   204,   205,
-     208,   211,   212,   215,   217,   218,   221,   224,   225,   228,
-     229,   230,   231,   232,   235,   236,   239,   240,   243,   246,
-     247,   251,   254,   255,   256,   257
+       0,    73,    73,    75,    77,    78,    79,    83,    84,    88,
+      89,    90,    91,    92,    96,    97,   101,   104,   105,   108,
+     109,   110,   114,   115,   119,   120,   123,   124,   125,   126,
+     129,   130,   133,   134,   138,   139,   143,   144,   145,   149,
+     150,   151,   155,   156,   160,   161,   162,   166,   167,   170,
+     171,   176,   179,   180,   183,   184,   185,   188,   189,   190,
+     191,   195,   196,   197,   198,   199,   200,   204,   205,   208,
+     209,   213,   214,   215,   216,   220,   221,   225,   226,   227,
+     230,   233,   234,   237,   239,   240,   243,   246,   247,   250,
+     251,   252,   253,   254,   257,   258,   261,   262,   265,   268,
+     269,   273,   276,   277,   278,   279
 };
 #endif
 
@@ -1634,559 +1638,577 @@ yyreduce:
     {
         case 6:
 /* Line 1787 of yacc.c  */
-#line 70 "./parser_src/aspcore2.y"
+#line 79 "./parser_src/aspcore2.y"
     { parser->onError("Generic error"); }
+    break;
+
+  case 7:
+/* Line 1787 of yacc.c  */
+#line 83 "./parser_src/aspcore2.y"
+    { parser->addRule((yyvsp[(2) - (2)].rule)); }
+    break;
+
+  case 8:
+/* Line 1787 of yacc.c  */
+#line 84 "./parser_src/aspcore2.y"
+    { parser->addRule((yyvsp[(1) - (1)].rule)); }
     break;
 
   case 9:
 /* Line 1787 of yacc.c  */
-#line 77 "./parser_src/aspcore2.y"
-    {}
+#line 88 "./parser_src/aspcore2.y"
+    { (yyval.rule) = parser->onRule((yyvsp[(1) - (2)].atom)); }
     break;
 
   case 10:
 /* Line 1787 of yacc.c  */
-#line 78 "./parser_src/aspcore2.y"
-    {}
+#line 89 "./parser_src/aspcore2.y"
+    { (yyval.rule) = parser->onRule((yyvsp[(1) - (3)].atom)); }
     break;
 
   case 11:
 /* Line 1787 of yacc.c  */
-#line 79 "./parser_src/aspcore2.y"
-    {}
+#line 90 "./parser_src/aspcore2.y"
+    { (yyval.rule) = parser->onRule((yyvsp[(1) - (4)].atom), (yyvsp[(3) - (4)].literals)); }
     break;
 
   case 12:
 /* Line 1787 of yacc.c  */
-#line 80 "./parser_src/aspcore2.y"
-    {}
+#line 91 "./parser_src/aspcore2.y"
+    { (yyval.rule) = parser->onRule((yyvsp[(2) - (3)].literals)); }
     break;
 
   case 13:
-/* Line 1787 of yacc.c  */
-#line 81 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 14:
-/* Line 1787 of yacc.c  */
-#line 84 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 15:
-/* Line 1787 of yacc.c  */
-#line 85 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 16:
-/* Line 1787 of yacc.c  */
-#line 88 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 17:
-/* Line 1787 of yacc.c  */
-#line 91 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 18:
 /* Line 1787 of yacc.c  */
 #line 92 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 19:
-/* Line 1787 of yacc.c  */
-#line 95 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 20:
+  case 14:
 /* Line 1787 of yacc.c  */
 #line 96 "./parser_src/aspcore2.y"
-    {}
+    { (yyval.atom) = (yyvsp[(1) - (1)].atom); }
     break;
 
-  case 21:
+  case 15:
 /* Line 1787 of yacc.c  */
 #line 97 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 22:
-/* Line 1787 of yacc.c  */
-#line 100 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 23:
+  case 16:
 /* Line 1787 of yacc.c  */
 #line 101 "./parser_src/aspcore2.y"
-    {}
+    { (yyval.literals) = (yyvsp[(1) - (1)].literals); }
     break;
 
-  case 24:
+  case 17:
 /* Line 1787 of yacc.c  */
 #line 104 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 25:
+  case 18:
 /* Line 1787 of yacc.c  */
 #line 105 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 26:
+  case 19:
 /* Line 1787 of yacc.c  */
 #line 108 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 27:
+  case 20:
 /* Line 1787 of yacc.c  */
 #line 109 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 28:
+  case 21:
 /* Line 1787 of yacc.c  */
 #line 110 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 29:
-/* Line 1787 of yacc.c  */
-#line 111 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 30:
+  case 22:
 /* Line 1787 of yacc.c  */
 #line 114 "./parser_src/aspcore2.y"
-    {}
+    { (yyval.atom) = (yyvsp[(1) - (1)].atom); }
     break;
 
-  case 31:
+  case 23:
 /* Line 1787 of yacc.c  */
 #line 115 "./parser_src/aspcore2.y"
-    {}
+    { (yyval.atom) = (yyvsp[(3) - (3)].atom); }
     break;
 
-  case 32:
-/* Line 1787 of yacc.c  */
-#line 118 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 33:
+  case 24:
 /* Line 1787 of yacc.c  */
 #line 119 "./parser_src/aspcore2.y"
-    {}
+    { (yyval.literals) = parser->onNafLiterals((yyvsp[(1) - (1)].literal)); }
     break;
 
-  case 34:
+  case 25:
 /* Line 1787 of yacc.c  */
-#line 122 "./parser_src/aspcore2.y"
-    {}
+#line 120 "./parser_src/aspcore2.y"
+    { (yyval.literals) = parser->onNafLiterals((yyvsp[(1) - (3)].literals), (yyvsp[(3) - (3)].literal)); }
     break;
 
-  case 35:
+  case 26:
 /* Line 1787 of yacc.c  */
 #line 123 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 36:
+  case 27:
+/* Line 1787 of yacc.c  */
+#line 124 "./parser_src/aspcore2.y"
+    {}
+    break;
+
+  case 28:
+/* Line 1787 of yacc.c  */
+#line 125 "./parser_src/aspcore2.y"
+    {}
+    break;
+
+  case 29:
 /* Line 1787 of yacc.c  */
 #line 126 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 37:
+  case 30:
 /* Line 1787 of yacc.c  */
-#line 127 "./parser_src/aspcore2.y"
+#line 129 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 38:
+  case 31:
 /* Line 1787 of yacc.c  */
-#line 128 "./parser_src/aspcore2.y"
+#line 130 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 39:
-/* Line 1787 of yacc.c  */
-#line 131 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 40:
-/* Line 1787 of yacc.c  */
-#line 132 "./parser_src/aspcore2.y"
-    {}
-    break;
-
-  case 41:
+  case 32:
 /* Line 1787 of yacc.c  */
 #line 133 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 42:
+  case 33:
 /* Line 1787 of yacc.c  */
-#line 136 "./parser_src/aspcore2.y"
+#line 134 "./parser_src/aspcore2.y"
     {}
     break;
 
-  case 43:
+  case 34:
 /* Line 1787 of yacc.c  */
-#line 137 "./parser_src/aspcore2.y"
-    {}
+#line 138 "./parser_src/aspcore2.y"
+    { (yyval.literals) = parser->onNafLiterals((yyvsp[(1) - (1)].literal)); }
     break;
 
-  case 45:
+  case 35:
 /* Line 1787 of yacc.c  */
-#line 141 "./parser_src/aspcore2.y"
-    {}
+#line 139 "./parser_src/aspcore2.y"
+    { (yyval.literals) = parser->onNafLiterals((yyvsp[(1) - (3)].literals), (yyvsp[(3) - (3)].literal)); }
     break;
 
-  case 46:
+  case 36:
 /* Line 1787 of yacc.c  */
-#line 142 "./parser_src/aspcore2.y"
-    {}
+#line 143 "./parser_src/aspcore2.y"
+    { (yyval.literal) = parser->onNafLiteral((yyvsp[(1) - (1)].atom), true); }
     break;
 
-  case 47:
+  case 37:
+/* Line 1787 of yacc.c  */
+#line 144 "./parser_src/aspcore2.y"
+    { (yyval.literal) = parser->onNafLiteral((yyvsp[(2) - (2)].atom), false); }
+    break;
+
+  case 38:
 /* Line 1787 of yacc.c  */
 #line 145 "./parser_src/aspcore2.y"
     {}
     break;
 
+  case 39:
+/* Line 1787 of yacc.c  */
+#line 149 "./parser_src/aspcore2.y"
+    { (yyval.literal) = (yyvsp[(1) - (1)].literal); }
+    break;
+
+  case 40:
+/* Line 1787 of yacc.c  */
+#line 150 "./parser_src/aspcore2.y"
+    {}
+    break;
+
+  case 41:
+/* Line 1787 of yacc.c  */
+#line 151 "./parser_src/aspcore2.y"
+    {}
+    break;
+
+  case 42:
+/* Line 1787 of yacc.c  */
+#line 155 "./parser_src/aspcore2.y"
+    { (yyval.atom) = (yyvsp[(1) - (1)].atom); }
+    break;
+
+  case 43:
+/* Line 1787 of yacc.c  */
+#line 156 "./parser_src/aspcore2.y"
+    { (yyval.atom) = (yyvsp[(2) - (2)].atom); }
+    break;
+
+  case 44:
+/* Line 1787 of yacc.c  */
+#line 160 "./parser_src/aspcore2.y"
+    { (yyval.atom) = parser->onAtom((yyvsp[(1) - (1)].string)); }
+    break;
+
+  case 45:
+/* Line 1787 of yacc.c  */
+#line 161 "./parser_src/aspcore2.y"
+    { (yyval.atom) = parser->onAtom((yyvsp[(1) - (4)].string), (yyvsp[(3) - (4)].terms)); }
+    break;
+
+  case 46:
+/* Line 1787 of yacc.c  */
+#line 162 "./parser_src/aspcore2.y"
+    { (yyval.atom) = parser->onAtom((yyvsp[(1) - (3)].string)); }
+    break;
+
+  case 47:
+/* Line 1787 of yacc.c  */
+#line 166 "./parser_src/aspcore2.y"
+    { (yyval.terms) = parser->onTerms((yyvsp[(1) - (1)].term)); }
+    break;
+
   case 48:
 /* Line 1787 of yacc.c  */
-#line 146 "./parser_src/aspcore2.y"
-    {}
+#line 167 "./parser_src/aspcore2.y"
+    { (yyval.terms) = parser->onTerms((yyvsp[(1) - (3)].terms), (yyvsp[(3) - (3)].term)); }
     break;
 
   case 49:
 /* Line 1787 of yacc.c  */
-#line 148 "./parser_src/aspcore2.y"
+#line 170 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 50:
 /* Line 1787 of yacc.c  */
-#line 149 "./parser_src/aspcore2.y"
+#line 171 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 51:
 /* Line 1787 of yacc.c  */
-#line 154 "./parser_src/aspcore2.y"
+#line 176 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 52:
 /* Line 1787 of yacc.c  */
-#line 157 "./parser_src/aspcore2.y"
+#line 179 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 53:
 /* Line 1787 of yacc.c  */
-#line 158 "./parser_src/aspcore2.y"
+#line 180 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 54:
 /* Line 1787 of yacc.c  */
-#line 161 "./parser_src/aspcore2.y"
+#line 183 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 55:
 /* Line 1787 of yacc.c  */
-#line 162 "./parser_src/aspcore2.y"
+#line 184 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 56:
 /* Line 1787 of yacc.c  */
-#line 163 "./parser_src/aspcore2.y"
+#line 185 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 57:
 /* Line 1787 of yacc.c  */
-#line 166 "./parser_src/aspcore2.y"
+#line 188 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 58:
 /* Line 1787 of yacc.c  */
-#line 167 "./parser_src/aspcore2.y"
+#line 189 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 59:
 /* Line 1787 of yacc.c  */
-#line 168 "./parser_src/aspcore2.y"
+#line 190 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 60:
 /* Line 1787 of yacc.c  */
-#line 169 "./parser_src/aspcore2.y"
+#line 191 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 61:
 /* Line 1787 of yacc.c  */
-#line 173 "./parser_src/aspcore2.y"
+#line 195 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTerm((yyvsp[(1) - (1)].string)); }
     break;
 
   case 62:
 /* Line 1787 of yacc.c  */
-#line 174 "./parser_src/aspcore2.y"
+#line 196 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTerm((yyvsp[(1) - (1)].string)); }
     break;
 
   case 63:
 /* Line 1787 of yacc.c  */
-#line 175 "./parser_src/aspcore2.y"
+#line 197 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTerm("_"); }
     break;
 
   case 64:
 /* Line 1787 of yacc.c  */
-#line 176 "./parser_src/aspcore2.y"
+#line 198 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTerm((yyvsp[(1) - (4)].string), (yyvsp[(3) - (4)].terms)); }
     break;
 
   case 65:
 /* Line 1787 of yacc.c  */
-#line 177 "./parser_src/aspcore2.y"
+#line 199 "./parser_src/aspcore2.y"
     { (yyval.term) = (yyvsp[(2) - (3)].term); }
     break;
 
   case 66:
 /* Line 1787 of yacc.c  */
-#line 178 "./parser_src/aspcore2.y"
+#line 200 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTermDash((yyvsp[(2) - (2)].term)); }
     break;
 
   case 67:
 /* Line 1787 of yacc.c  */
-#line 182 "./parser_src/aspcore2.y"
+#line 204 "./parser_src/aspcore2.y"
     { (yyval.term) = (yyvsp[(1) - (1)].term); }
     break;
 
   case 68:
 /* Line 1787 of yacc.c  */
-#line 183 "./parser_src/aspcore2.y"
+#line 205 "./parser_src/aspcore2.y"
     { (yyval.term) = parser->onTerm((yyvsp[(1) - (3)].term), (yyvsp[(3) - (3)].term)); }
     break;
 
   case 69:
 /* Line 1787 of yacc.c  */
-#line 186 "./parser_src/aspcore2.y"
+#line 208 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 70:
 /* Line 1787 of yacc.c  */
-#line 187 "./parser_src/aspcore2.y"
+#line 209 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 75:
 /* Line 1787 of yacc.c  */
-#line 198 "./parser_src/aspcore2.y"
+#line 220 "./parser_src/aspcore2.y"
     { (yyval.variable) = parser->onVariableTerm((yyvsp[(1) - (1)].string)); }
     break;
 
   case 76:
 /* Line 1787 of yacc.c  */
-#line 199 "./parser_src/aspcore2.y"
+#line 221 "./parser_src/aspcore2.y"
     { (yyval.variable) = parser->onVariableTerm(); }
     break;
 
   case 77:
 /* Line 1787 of yacc.c  */
-#line 203 "./parser_src/aspcore2.y"
+#line 225 "./parser_src/aspcore2.y"
     { (yyval.string) = (yyvsp[(1) - (1)].string); }
     break;
 
   case 78:
 /* Line 1787 of yacc.c  */
-#line 204 "./parser_src/aspcore2.y"
+#line 226 "./parser_src/aspcore2.y"
     { (yyval.string) = (yyvsp[(1) - (1)].string); }
     break;
 
   case 79:
 /* Line 1787 of yacc.c  */
-#line 205 "./parser_src/aspcore2.y"
+#line 227 "./parser_src/aspcore2.y"
     { (yyval.string) = (yyvsp[(1) - (1)].string); }
     break;
 
   case 80:
 /* Line 1787 of yacc.c  */
-#line 208 "./parser_src/aspcore2.y"
+#line 230 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 81:
 /* Line 1787 of yacc.c  */
-#line 211 "./parser_src/aspcore2.y"
+#line 233 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 82:
 /* Line 1787 of yacc.c  */
-#line 212 "./parser_src/aspcore2.y"
+#line 234 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 83:
 /* Line 1787 of yacc.c  */
-#line 215 "./parser_src/aspcore2.y"
+#line 237 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 85:
 /* Line 1787 of yacc.c  */
-#line 218 "./parser_src/aspcore2.y"
+#line 240 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 86:
 /* Line 1787 of yacc.c  */
-#line 221 "./parser_src/aspcore2.y"
+#line 243 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 87:
 /* Line 1787 of yacc.c  */
-#line 224 "./parser_src/aspcore2.y"
+#line 246 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 88:
 /* Line 1787 of yacc.c  */
-#line 225 "./parser_src/aspcore2.y"
+#line 247 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 89:
 /* Line 1787 of yacc.c  */
-#line 228 "./parser_src/aspcore2.y"
+#line 250 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 90:
 /* Line 1787 of yacc.c  */
-#line 229 "./parser_src/aspcore2.y"
+#line 251 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 91:
 /* Line 1787 of yacc.c  */
-#line 230 "./parser_src/aspcore2.y"
+#line 252 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 92:
 /* Line 1787 of yacc.c  */
-#line 231 "./parser_src/aspcore2.y"
+#line 253 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 93:
 /* Line 1787 of yacc.c  */
-#line 232 "./parser_src/aspcore2.y"
+#line 254 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 94:
 /* Line 1787 of yacc.c  */
-#line 235 "./parser_src/aspcore2.y"
+#line 257 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 95:
 /* Line 1787 of yacc.c  */
-#line 236 "./parser_src/aspcore2.y"
+#line 258 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 96:
 /* Line 1787 of yacc.c  */
-#line 239 "./parser_src/aspcore2.y"
+#line 261 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 97:
 /* Line 1787 of yacc.c  */
-#line 240 "./parser_src/aspcore2.y"
+#line 262 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 98:
 /* Line 1787 of yacc.c  */
-#line 243 "./parser_src/aspcore2.y"
+#line 265 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 99:
 /* Line 1787 of yacc.c  */
-#line 246 "./parser_src/aspcore2.y"
+#line 268 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 100:
 /* Line 1787 of yacc.c  */
-#line 247 "./parser_src/aspcore2.y"
+#line 269 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 101:
 /* Line 1787 of yacc.c  */
-#line 251 "./parser_src/aspcore2.y"
+#line 273 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 102:
 /* Line 1787 of yacc.c  */
-#line 254 "./parser_src/aspcore2.y"
+#line 276 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 103:
 /* Line 1787 of yacc.c  */
-#line 255 "./parser_src/aspcore2.y"
+#line 277 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 104:
 /* Line 1787 of yacc.c  */
-#line 256 "./parser_src/aspcore2.y"
+#line 278 "./parser_src/aspcore2.y"
     {}
     break;
 
   case 105:
 /* Line 1787 of yacc.c  */
-#line 257 "./parser_src/aspcore2.y"
+#line 279 "./parser_src/aspcore2.y"
     {}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 2190 "./parser_src/aspcore2_parser.hpp"
+#line 2212 "./parser_src/aspcore2_parser.hpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2418,7 +2440,7 @@ yyreturn:
 
 
 /* Line 2050 of yacc.c  */
-#line 261 "./parser_src/aspcore2.y"
+#line 283 "./parser_src/aspcore2.y"
 
 
 // Local Variables:

@@ -7,3 +7,4 @@ bison -y -d -o $DIRNAME/aspcore2_parser.c $DIRNAME/aspcore2.y
 bison -y -o $DIRNAME/aspcore2_parser.hpp $DIRNAME/aspcore2.y
 
 cp $DIRNAME/aspcore2_lexer.hpp $DIRNAME/aspcore2_parser.h $DIRNAME/aspcore2_parser.hpp $DIRNAME/../src/
+rm $DIRNAME/aspcore2_lexer.hpp $DIRNAME/aspcore2_parser.c $DIRNAME/aspcore2_parser.h $DIRNAME/aspcore2_parser.hpp
