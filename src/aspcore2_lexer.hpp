@@ -1,6 +1,6 @@
-#line 2 "./parser_src/aspcore2_lexer.hpp"
+#line 2 "../parser_src/aspcore2_lexer.hpp"
 
-#line 4 "./parser_src/aspcore2_lexer.hpp"
+#line 4 "../parser_src/aspcore2_lexer.hpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -503,8 +503,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "./parser_src/aspcore2.l"
-#line 2 "./parser_src/aspcore2.l"
+#line 1 "../parser_src/aspcore2.l"
+#line 2 "../parser_src/aspcore2.l"
 /////////////////////////////////////////////////////////////////////////////
 // scanner_asp_rfc.l
 
@@ -536,7 +536,7 @@ AspCore2* lexer = AspCore2::getInstance();
 //Only in state WANT_NEWLINE a newline
 // token for the parser is generated, while
 // normally newlines are simply skipped.
-#line 540 "./parser_src/aspcore2_lexer.hpp"
+#line 540 "../parser_src/aspcore2_lexer.hpp"
 
 #define INITIAL 0
 #define WANT_NEWLINE 1
@@ -722,13 +722,13 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 47 "./parser_src/aspcore2.l"
+#line 47 "../parser_src/aspcore2.l"
 
         // Newline is normally skipped, except when explicitly
 		// requested with WANT_NEWLINE. (e.g. by a construct that is
 		// terminated by a newline.)
 	
-#line 732 "./parser_src/aspcore2_lexer.hpp"
+#line 732 "../parser_src/aspcore2_lexer.hpp"
 
 	if ( !(yy_init) )
 		{
@@ -814,7 +814,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 52 "./parser_src/aspcore2.l"
+#line 52 "../parser_src/aspcore2.l"
 { 
 			lexer->onNewLine();
 			BEGIN(INITIAL);
@@ -824,169 +824,169 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 57 "./parser_src/aspcore2.l"
+#line 57 "../parser_src/aspcore2.l"
 { lexer->onNewLine();    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 59 "./parser_src/aspcore2.l"
+#line 59 "../parser_src/aspcore2.l"
 { return DOT;		}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 61 "./parser_src/aspcore2.l"
+#line 61 "../parser_src/aspcore2.l"
 { return COMMA;		}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 62 "./parser_src/aspcore2.l"
+#line 62 "../parser_src/aspcore2.l"
 { return ANON_VAR; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 63 "./parser_src/aspcore2.l"
+#line 63 "../parser_src/aspcore2.l"
 { return VEL; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 64 "./parser_src/aspcore2.l"
+#line 64 "../parser_src/aspcore2.l"
 { return SEMICOLON; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 65 "./parser_src/aspcore2.l"
+#line 65 "../parser_src/aspcore2.l"
 { return COLON; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 66 "./parser_src/aspcore2.l"
+#line 66 "../parser_src/aspcore2.l"
 { return AT;		}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 68 "./parser_src/aspcore2.l"
+#line 68 "../parser_src/aspcore2.l"
 { return NAF;    }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 70 "./parser_src/aspcore2.l"
+#line 70 "../parser_src/aspcore2.l"
 { return CONS;	}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 71 "./parser_src/aspcore2.l"
+#line 71 "../parser_src/aspcore2.l"
 { return WCONS;	}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 73 "./parser_src/aspcore2.l"
+#line 73 "../parser_src/aspcore2.l"
 { return PLUS;	}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 74 "./parser_src/aspcore2.l"
+#line 74 "../parser_src/aspcore2.l"
 { return DASH;  }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 75 "./parser_src/aspcore2.l"
+#line 75 "../parser_src/aspcore2.l"
 { return TIMES;	}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 76 "./parser_src/aspcore2.l"
+#line 76 "../parser_src/aspcore2.l"
 { return SLASH; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 78 "./parser_src/aspcore2.l"
+#line 78 "../parser_src/aspcore2.l"
 { return PARAM_OPEN;	}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 79 "./parser_src/aspcore2.l"
+#line 79 "../parser_src/aspcore2.l"
 { return PARAM_CLOSE;	}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 81 "./parser_src/aspcore2.l"
+#line 81 "../parser_src/aspcore2.l"
 { return SQUARE_OPEN;	}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 82 "./parser_src/aspcore2.l"
+#line 82 "../parser_src/aspcore2.l"
 { return SQUARE_CLOSE;	}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 84 "./parser_src/aspcore2.l"
+#line 84 "../parser_src/aspcore2.l"
 { return CURLY_OPEN;	}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 85 "./parser_src/aspcore2.l"
+#line 85 "../parser_src/aspcore2.l"
 { return CURLY_CLOSE;	}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 87 "./parser_src/aspcore2.l"
+#line 87 "../parser_src/aspcore2.l"
 { return EQUAL;}
 	YY_BREAK
 case 24:
-#line 89 "./parser_src/aspcore2.l"
+#line 89 "../parser_src/aspcore2.l"
 case 25:
 YY_RULE_SETUP
-#line 89 "./parser_src/aspcore2.l"
+#line 89 "../parser_src/aspcore2.l"
 { return UNEQUAL;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 90 "./parser_src/aspcore2.l"
+#line 90 "../parser_src/aspcore2.l"
 { return LESS;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 91 "./parser_src/aspcore2.l"
+#line 91 "../parser_src/aspcore2.l"
 { return GREATER;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 92 "./parser_src/aspcore2.l"
+#line 92 "../parser_src/aspcore2.l"
 { return LESS_OR_EQ;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 93 "./parser_src/aspcore2.l"
+#line 93 "../parser_src/aspcore2.l"
 { return GREATER_OR_EQ;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 95 "./parser_src/aspcore2.l"
+#line 95 "../parser_src/aspcore2.l"
 { return QUERY_MARK;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 97 "./parser_src/aspcore2.l"
+#line 97 "../parser_src/aspcore2.l"
 { return AGGR_COUNT;            }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 98 "./parser_src/aspcore2.l"
+#line 98 "../parser_src/aspcore2.l"
 { return AGGR_MAX;              }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 99 "./parser_src/aspcore2.l"
+#line 99 "../parser_src/aspcore2.l"
 { return AGGR_MIN;              }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 100 "./parser_src/aspcore2.l"
+#line 100 "../parser_src/aspcore2.l"
 { return AGGR_SUM;              }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 102 "./parser_src/aspcore2.l"
+#line 102 "../parser_src/aspcore2.l"
 {
 							yylval.string=new char[strlen(yytext)+1];
 							strcpy(yylval.string,yytext);
@@ -995,7 +995,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 108 "./parser_src/aspcore2.l"
+#line 108 "../parser_src/aspcore2.l"
 {
 							yylval.string=new char[strlen(yytext)+1];
 							strcpy(yylval.string,yytext);
@@ -1005,7 +1005,7 @@ YY_RULE_SETUP
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 114 "./parser_src/aspcore2.l"
+#line 114 "../parser_src/aspcore2.l"
 {
 							yylval.string=new char[strlen(yytext)+1];
 							strcpy(yylval.string,yytext);
@@ -1014,7 +1014,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 120 "./parser_src/aspcore2.l"
+#line 120 "../parser_src/aspcore2.l"
 { 
 						    yylval.string=new char[strlen(yytext)+1];
 							strcpy(yylval.string,yytext);
@@ -1023,17 +1023,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 126 "./parser_src/aspcore2.l"
+#line 126 "../parser_src/aspcore2.l"
 { /* Skip comments */	}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 127 "./parser_src/aspcore2.l"
+#line 127 "../parser_src/aspcore2.l"
 { /* Skip blanks */	}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 129 "./parser_src/aspcore2.l"
+#line 129 "../parser_src/aspcore2.l"
 { // Anything not matching one of the patterns
 				 // given above is considered an error.
 					char s[1024];
@@ -1046,10 +1046,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 138 "./parser_src/aspcore2.l"
+#line 138 "../parser_src/aspcore2.l"
 ECHO;
 	YY_BREAK
-#line 1053 "./parser_src/aspcore2_lexer.hpp"
+#line 1053 "../parser_src/aspcore2_lexer.hpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(WANT_NEWLINE):
 	yyterminate();
@@ -2011,4 +2011,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 138 "./parser_src/aspcore2.l"
+#line 138 "../parser_src/aspcore2.l"

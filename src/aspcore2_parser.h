@@ -130,7 +130,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 27 "./parser_src/aspcore2.y"
+#line 27 "../parser_src/aspcore2.y"
 
     char* string;
     Variable* variable;
@@ -143,7 +143,7 @@ typedef union YYSTYPE
 
 
 /* Line 2053 of yacc.c  */
-#line 147 "./parser_src/aspcore2_parser.h"
+#line 147 "../parser_src/aspcore2_parser.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

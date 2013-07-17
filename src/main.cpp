@@ -58,15 +58,6 @@ int main() {
     /*
 */
     cout << program;
-
-    program.computeComponents();
-    program.printComponents(cout);
-    cout << endl;
-
-    program.sortRules();
-    cout << program;
-
-    program.indexPredicates();
     program.instantiate();
 
     cout << "end" << endl;
@@ -75,6 +66,7 @@ int main() {
     AspCore2& parser = *AspCore2::getInstance();
     parser.parse(p);
     cout << p;
+    p.instantiate();
 
     AspCore2::free();
 
