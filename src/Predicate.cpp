@@ -47,7 +47,7 @@ void
 Predicate::createIndex(
         const list<int>& positionsToIndex) {
     data->arity[this->arity].indices.create(positionsToIndex);
-    cout << *this << this->arity << ": " << data->arity[this->arity].indices << endl;
+    cerr << *this << this->arity << ": " << data->arity[this->arity].indices << endl;
 }
 
 void

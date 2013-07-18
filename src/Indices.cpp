@@ -85,7 +85,7 @@ Indices::Tuples::addInstance(
     if(structure.isTerminal()) {
         const pair<unordered_map<string, Terms*>::iterator, bool>& res = data.insert(unordered_map<string, Terms*>::value_type(key, value));
         assert(res.second);
-        cout << "HERE" << endl;
+        cerr << "HERE" << endl;
     }
 
     Terms& terms = *value;
@@ -94,7 +94,7 @@ Indices::Tuples::addInstance(
         pair<unordered_map<string, Tuples*>::iterator, bool> res = byIndex.insert(unordered_map<string, Tuples*>::value_type(subkey, NULL));
         if(res.second)
             res.first->second = new Tuples();
-        cout << "AAA: " << subkey << *res.first->second<< endl;
+        cerr << "AAA: " << subkey << *res.first->second<< endl;
         res.first->second->addInstance(key, value, *it->second);
     }
 
@@ -144,5 +144,14 @@ Indices::addInstance(
     }
     else
         delete terms;
-    cout << "Indices::addInstance() " << *this << endl;
+    cerr << "Indices::addInstance() " << *this << endl;
+}
+
+bool
+Indices::isTrue(
+        const Terms& terms) const {
+    const string& key = toString(terms);
+    unordered_map<string, pair<Terms*, bool> >::const_iterator res = data.find(key);
+    assert(res != data.end());
+    return res->second.second;
 }

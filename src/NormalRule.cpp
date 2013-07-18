@@ -8,6 +8,7 @@
 #include "NormalRule.h"
 #include "Component.h"
 #include "Variable.h"
+#include "Output.h"
 
 NormalRule::NormalRule(
         const Atom& head_,
@@ -33,11 +34,9 @@ void
 NormalRule::addDependencies(
         DependenciesGraph& graph,
         bool onlyPositive) const {
-    if(body.size() == 0)
-        graph.notifyHeadPredicate(head.getPredicate());
-    else
-        for(unsigned i = 0; i < body.size(); ++i)
-            body[i].addDependencies(graph, head, onlyPositive);
+    graph.notifyHeadPredicate(head.getPredicate());
+    for(unsigned i = 0; i < body.size(); ++i)
+        body[i].addDependencies(graph, head, onlyPositive);
 }
 
 void
@@ -85,18 +84,33 @@ NormalRule::instantiate() {
 void
 NormalRule::instantiateLiteral(
         unsigned index) {
+    /*
     cout << "NormalRule::instantiateLiteral() " << index << endl;
     for(unordered_map<string, Term*>::const_iterator it = variableSubstitutions.begin(); it != variableSubstitutions.end(); ++it)
         cout << it->first << "=>" << *it->second << endl;
+        */
     if(index >= body.size()) {
         head.addInstance(variableSubstitutions);
+
+        Output& builder = head.getPredicate().getProgram().getOutputBuilder();
+        stringstream headSS;
+        head.print(headSS, variableSubstitutions);
+        builder.normalRuleStart(headSS.str());
+        for(unsigned i = 0; i < body.size(); ++i)
+            body[i].output(builder, variableSubstitutions, head);
+        builder.normalRuleEnd();
+
         return;
     }
-    const Indices::Tuples* res = body[index].instantiate(variableSubstitutions);
-    if(res != NULL) {
-        for(Indices::Tuples::const_iterator it = res->begin(); it != res->end(); ++it) {
-            body[index].bind(variableSubstitutions, *it->second);
-            instantiateLiteral(index + 1);
+    const Indices::Tuples* tuples = NULL;
+    if(body[index].instantiate(variableSubstitutions, tuples)) {
+        if(tuples != NULL) {
+            for(Indices::Tuples::const_iterator it = tuples->begin(); it != tuples->end(); ++it) {
+                body[index].bind(variableSubstitutions, *it->second);
+                instantiateLiteral(index + 1);
+            }
         }
+        else
+            instantiateLiteral(index + 1);
     }
 }

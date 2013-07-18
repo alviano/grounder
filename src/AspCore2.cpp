@@ -1,4 +1,4 @@
-#include "aspcore2.h"
+#include "AspCore2.h"
 
 #include <cassert>
 #include <cstdio>
@@ -17,7 +17,7 @@ using namespace std;
 
 extern "C" int yywrap()    // End-of-file handler for LEX
     {
-    return AspCore2::getInstance()->onWrap();
+    return AspCore2::getInstance().onWrap();
     }
 
 extern "C" FILE* yyin;     // Where LEX reads its input from
@@ -27,7 +27,7 @@ extern "C" FILE* yyin;     // Where LEX reads its input from
 
 int yyerror(const char* s) // Error handler for YACC
 {
-    return AspCore2::getInstance()->onError(s);
+    return AspCore2::getInstance().onError(s);
 }
 
 #include "aspcore2_lexer.hpp"
@@ -38,11 +38,11 @@ int yyerror(const char* s) // Error handler for YACC
 
 AspCore2* AspCore2::instance = NULL;
 
-AspCore2*
+AspCore2&
 AspCore2::getInstance() {
     if(instance == NULL)
         instance = new AspCore2();
-    return instance;
+    return *instance;
 }
 
 void
@@ -51,6 +51,7 @@ AspCore2::free() {
         assert(instance->program == NULL);
         delete instance;
         instance = NULL;
+        yylex_destroy();
     }
 }
 
@@ -120,6 +121,7 @@ AspCore2::parse(
     this->file = filename;
     this->line = 1;
     yyparse();
+    fclose(yyin);
 
     if(this->errors > 0) {
         cerr << "Aborting due to parser errors." << endl;
@@ -191,6 +193,8 @@ AspCore2::onTerm(
         const char* functor,
         Terms* terms) {
     // FIXME
+    delete[] functor;
+    delete terms;
     return NULL;
 }
 
@@ -199,6 +203,8 @@ AspCore2::onTerm(
         Term* left,
         Term* right) {
     // FIXME
+    delete left;
+    delete right;
     return NULL;
 }
 
@@ -206,6 +212,7 @@ Term*
 AspCore2::onTermDash(
         Term* term) {
     // FIXME
+    delete term;
     return NULL;
 }
 

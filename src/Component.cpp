@@ -48,7 +48,7 @@ Component::removeAll(
 
 void
 Component::instantiate() {
-    cout << "Component::instantiate() " << *this << endl;
+    cerr << "Component::instantiate() " << *this << endl;
     list<Rule*> exitRules;
     list<Rule*> recursiveRules;
 

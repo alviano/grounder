@@ -27,8 +27,6 @@ public:
     virtual int addVariables(unordered_map<string, int>& variableFirstOccurrence, int indexInRule) const { return atom.addVariables(variableFirstOccurrence, indexInRule); }
     virtual void indexPredicate(unordered_map<string, int>& variableFirstOccurrence, int indexInRule) { atom.indexPredicate(variableFirstOccurrence, indexInRule); }
     virtual bool isRecursiveWith(const Predicate& predicate) const;
-    virtual const Indices::Tuples* instantiate(const unordered_map<string, Term*>& variables);
-    virtual void bind(unordered_map<string, Term*>& variables, const Terms& tuple) const;
 
 protected:
     Atom atom;

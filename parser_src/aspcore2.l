@@ -22,9 +22,7 @@ This file is part of the ASPCOMP2013 ASP-Core-2 validator (validator in the foll
 
 
 #include "aspcore2_parser.h"
-#include "aspcore2.h"
-
-AspCore2* lexer = AspCore2::getInstance();
+#include "AspCore2.h"
 
 %}
 
@@ -50,11 +48,11 @@ NUMBER         		([0-9]+)
 		// terminated by a newline.)
 	
 <WANT_NEWLINE>{NEWLINE} { 
-			lexer->onNewLine();
+			AspCore2::getInstance().onNewLine();
 			BEGIN(INITIAL);
 			return NEWLINE;
 			}
-{NEWLINE}	{ lexer->onNewLine();    }
+{NEWLINE}	{ AspCore2::getInstance().onNewLine();    }
 
 "."			{ return DOT;		}
 
@@ -131,7 +129,7 @@ NUMBER         		([0-9]+)
 					char s[1024];
 					assert(yytext[1]==0);
 					sprintf(s,"Lexical syntax error (%s)",yytext); 
-					lexer->onError(s);
+					AspCore2::getInstance().onError(s);
 		
                     return ERROR;
 				}

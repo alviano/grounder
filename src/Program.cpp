@@ -7,15 +7,20 @@
 
 #include "Program.h"
 
+#include "Output.h"
+
 ostream& operator<<(ostream& out, const Program& program) {
     for(list<Rule*>::const_iterator it = program.rules.begin(); it != program.rules.end(); ++it)
         out << **it << endl;
     return out;
 }
 
-Program::Program() {
+Program::Program(
+        Output& outputBuilder_)
+: outputBuilder(outputBuilder_) {
     falsePredicate = new Predicate(createPredicate("#fail"));
     falsePredicate->setArity(0);
+    outputBuilder.falseAtom(toString(*falsePredicate));
 }
 
 Program::~Program() {
@@ -82,6 +87,8 @@ Program::computeComponents() {
         p->second.addToComponents(positiveDependenciesGraph);
     }
 
+    //positiveDependenciesGraph.printComponents(cerr);
+    //dependenciesGraph.printComponents(cerr);
 
     for(int i = 0, j = 0; ;) {
         assert(i < positiveDependenciesGraph.getNumberOfComponents());
@@ -97,9 +104,6 @@ Program::computeComponents() {
             c_j->removeAll(*c_i);
             if(c_j->size() == 0)
                 if(++j >= dependenciesGraph.getNumberOfComponents()) {
-                    assert(i+1 == positiveDependenciesGraph.getNumberOfComponents());
-                    //while(++i < positiveDependenciesGraph.getNumberOfComponents())
-                    //    components.push_back(positiveDependenciesGraph.getComponent(i));
                     break;
                 }
             i = 1;
@@ -135,6 +139,7 @@ Program::indexPredicates() {
 
 void
 Program::instantiate() {
+    outputBuilder.programStart();
     computeComponents();
     sortRules();
     indexPredicates();
@@ -142,4 +147,5 @@ Program::instantiate() {
         Component* component = *it;
         component->instantiate();
     }
+    outputBuilder.programEnd();
 }

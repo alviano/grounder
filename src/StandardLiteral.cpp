@@ -45,15 +45,3 @@ StandardLiteral::isRecursiveWith(
     return atom.getPredicate().getComponent().getIndex() == predicate.getComponent().getIndex();
 }
 
-const Indices::Tuples*
-StandardLiteral::instantiate(
-        const unordered_map<string, Term*>& variables) {
-    return atom.instantiate(variables);
-}
-
-void
-StandardLiteral::bind(
-        unordered_map<string, Term*>& variables,
-        const Terms& tuple) const {
-    atom.bind(variables, tuple);
-}

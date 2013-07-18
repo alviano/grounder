@@ -6,7 +6,7 @@ LINK=$(GCC)
 LINKFLAGS=-lm 
 
 SRCS = \
- aspcore2.cpp\
+ AspCore2.cpp\
  Atom.cpp\
  Body.cpp\
  Clonable.cpp\
@@ -18,6 +18,7 @@ SRCS = \
  NormalRule.cpp\
  Predicate.cpp\
  Program.cpp\
+ Output.cpp\
  Rule.cpp\
  StandardLiteral.cpp\
  StandardNegativeLiteral.cpp\
@@ -31,10 +32,10 @@ SRCS = \
 OBJS = $(SRCS:.cpp=.o)
 DEPS = $(SRCS:.cpp=.d)
 
-all: bin $(BINARY)
+all: ../bin $(BINARY)
 
-bin:
-	mkdir -p bin
+../bin:
+	mkdir -p ../bin
 	
 %.d: %.cpp
 	$(CXX) $(CXXFLAGS) -M $< >$@

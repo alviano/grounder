@@ -34,6 +34,8 @@ public:
     void addInstance(const unordered_map<string, Term*>& variables);
     void bind(unordered_map<string, Term*>& variables, const Terms& tuple) const;
 
+    bool print(ostream& out, const unordered_map<string, Term*>& variables) const;
+
 private:
     Predicate predicate;
     Terms terms;

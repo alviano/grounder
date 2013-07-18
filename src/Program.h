@@ -15,10 +15,12 @@
 #include "Component.h"
 #include "DependenciesGraph.h"
 
+class Output;
+
 class Program {
     friend ostream& operator<<(ostream& out, const Program& program);
 public:
-    Program();
+    Program(Output& outputBuilder);
     virtual ~Program();
 
     Predicate createPredicate(const string& name);
@@ -34,9 +36,12 @@ public:
     void indexPredicates();
     void instantiate();
 
-private:
-    Program(const Program&) { assert(0); }
+    Output& getOutputBuilder() const { return outputBuilder; }
 
+private:
+    Program(const Program& init) : outputBuilder(init.outputBuilder) { assert(0); }
+
+    Output& outputBuilder;
     Predicate* falsePredicate;
     list<Rule*> rules;
 

@@ -130,7 +130,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 27 "../parser_src/aspcore2.y"
+#line 25 "../parser_src/aspcore2.y"
 
     char* string;
     Variable* variable;

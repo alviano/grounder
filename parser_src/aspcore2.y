@@ -1,6 +1,6 @@
 %{
 //////////////////////////////////////////////////////////////////////////////
-// parser.y
+// AspCore2::getInstance().y
 
 //////////////////////////////////////////////////////////////////////////////
 /*
@@ -19,8 +19,6 @@ This file is part of the ASPCOMP2013 ASP-Core-2 validator (validator in the foll
     You should have received a copy of the GNU General Public License
     along with the validator.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-AspCore2* parser = AspCore2::getInstance();
 
 %}
 %error-verbose
@@ -76,19 +74,19 @@ program
     : 
     | rules
     | rules query
-    | error { parser->onError("Generic error"); }
+    | error { AspCore2::getInstance().onError("Generic error"); }
     ;
 
 rules
-    : rules rule { parser->addRule($2); }
-    | rule { parser->addRule($1); }
+    : rules rule { AspCore2::getInstance().addRule($2); }
+    | rule { AspCore2::getInstance().addRule($1); }
     ;
 
 rule
-    : head DOT { $$ = parser->onRule($1); }
-    | head CONS DOT { $$ = parser->onRule($1); }
-    | head CONS body DOT { $$ = parser->onRule($1, $3); }
-    | CONS body DOT /*constraint*/ { $$ = parser->onRule($2); }
+    : head DOT { $$ = AspCore2::getInstance().onRule($1); }
+    | head CONS DOT { $$ = AspCore2::getInstance().onRule($1); }
+    | head CONS body DOT { $$ = AspCore2::getInstance().onRule($1, $3); }
+    | CONS body DOT /*constraint*/ { $$ = AspCore2::getInstance().onRule($2); }
     | WCONS body DOT weight_at_levels {}
     ;
 
@@ -116,8 +114,8 @@ disjunction
     ;
 
 conjunction
-    : naf_literal_aggregate { $$ = parser->onNafLiterals($1); }
-    | conjunction COMMA naf_literal_aggregate { $$ = parser->onNafLiterals($1, $3); }
+    : naf_literal_aggregate { $$ = AspCore2::getInstance().onNafLiterals($1); }
+    | conjunction COMMA naf_literal_aggregate { $$ = AspCore2::getInstance().onNafLiterals($1, $3); }
     ;
 
 choice_atom : term binop CURLY_OPEN choice_elements CURLY_CLOSE binop term {}
@@ -135,13 +133,13 @@ choice_element : atom {}
                ;
 
 naf_literals
-    : naf_literal { $$ = parser->onNafLiterals($1); }
-    | naf_literals COMMA naf_literal { $$ = parser->onNafLiterals($1, $3); }
+    : naf_literal { $$ = AspCore2::getInstance().onNafLiterals($1); }
+    | naf_literals COMMA naf_literal { $$ = AspCore2::getInstance().onNafLiterals($1, $3); }
     ;    
           
 naf_literal
-    : classic_literal { $$ = parser->onNafLiteral($1, true); }
-    | NAF classic_literal { $$ = parser->onNafLiteral($2, false); }
+    : classic_literal { $$ = AspCore2::getInstance().onNafLiteral($1, true); }
+    | NAF classic_literal { $$ = AspCore2::getInstance().onNafLiteral($2, false); }
     | builtin_atom {}
     ;
 
@@ -157,14 +155,14 @@ classic_literal
     ;  
 
 atom
-    : identifier { $$ = parser->onAtom($1); }
-    | identifier PARAM_OPEN terms PARAM_CLOSE { $$ = parser->onAtom($1, $3); }
-    | identifier PARAM_OPEN PARAM_CLOSE { $$ = parser->onAtom($1); }
+    : identifier { $$ = AspCore2::getInstance().onAtom($1); }
+    | identifier PARAM_OPEN terms PARAM_CLOSE { $$ = AspCore2::getInstance().onAtom($1, $3); }
+    | identifier PARAM_OPEN PARAM_CLOSE { $$ = AspCore2::getInstance().onAtom($1); }
     ;              
          
 terms
-    : term { $$ = parser->onTerms($1); }
-    | terms COMMA term { $$ = parser->onTerms($1, $3); }
+    : term { $$ = AspCore2::getInstance().onTerms($1); }
+    | terms COMMA term { $$ = AspCore2::getInstance().onTerms($1, $3); }
     ;
 
 basic_terms : basic_term {}
@@ -192,17 +190,17 @@ arithop   : PLUS     {}
           ;      
 
 term_ 
-    : identifier { $$ = parser->onTerm($1); }
-    | NUMBER { $$ = parser->onTerm($1); }
-    | ANON_VAR { $$ = parser->onTerm("_"); }
-    | identifier PARAM_OPEN terms PARAM_CLOSE { $$ = parser->onTerm($1, $3); }
+    : identifier { $$ = AspCore2::getInstance().onTerm($1); }
+    | NUMBER { $$ = AspCore2::getInstance().onTerm($1); }
+    | ANON_VAR { $$ = AspCore2::getInstance().onTerm("_"); }
+    | identifier PARAM_OPEN terms PARAM_CLOSE { $$ = AspCore2::getInstance().onTerm($1, $3); }
     | PARAM_OPEN term PARAM_CLOSE { $$ = $2; }
-    | DASH term { $$ = parser->onTermDash($2); }
+    | DASH term { $$ = AspCore2::getInstance().onTermDash($2); }
     ;
 
 term
     : term_ { $$ = $1; }
-    | term arithop term_ { $$ = parser->onTerm($1, $3); }
+    | term arithop term_ { $$ = AspCore2::getInstance().onTerm($1, $3); }
     ;        
 
 basic_term : ground_term {}
@@ -217,8 +215,8 @@ ground_term
     ;
 
 variable_term 
-    : VARIABLE { $$ = parser->onVariableTerm($1); }
-    | ANON_VAR { $$ = parser->onVariableTerm(); }
+    : VARIABLE { $$ = AspCore2::getInstance().onVariableTerm($1); }
+    | ANON_VAR { $$ = AspCore2::getInstance().onVariableTerm(); }
     ;
          
 identifier

@@ -31,6 +31,8 @@ public:
     void detachComponents() { components.clear(); }
     void notifyHeadPredicate(const Predicate& p);
 
+    void printComponents(ostream& out) const;
+
 private:
     AdjacencyList& graph;
     set<int> selfLoops;

@@ -45,7 +45,8 @@ public:
     void addDefiningRules(list<Rule*>& exitRules, list<Rule*>& recursiveRules);
 
     const Indices::Tuples* instantiate(const Atom& atom, const unordered_map<string, Term*>& variables);
-    void addInstance(Terms* terms) { cout << data->arity[this->arity].indices<<endl; data->arity[this->arity].indices.addInstance(terms); }
+    void addInstance(Terms* terms) { cerr << data->arity[this->arity].indices<<endl; data->arity[this->arity].indices.addInstance(terms); }
+    bool isTrue(const Terms& terms) const { return data->arity[this->arity].indices.isTrue(terms); }
 
 private:
     struct SingleData {

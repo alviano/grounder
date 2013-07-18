@@ -58,6 +58,7 @@ public:
     void create(const list<int>& positions);
     const Tuples* instantiate(const Atom& atom, const unordered_map<string, Term*>& variables);
     void addInstance(Terms* terms);
+    bool isTrue(const Terms& terms) const;
 
 private:
     Structure structure;

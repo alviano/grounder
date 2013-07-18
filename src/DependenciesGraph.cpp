@@ -96,3 +96,13 @@ DependenciesGraph::notifyHeadPredicate(
         const Predicate& p) {
     addDependency(p, p.getProgram().getFalsePredicate());
 }
+
+void
+DependenciesGraph::printComponents(
+        ostream& out) const {
+    for(vector<Component*>::const_iterator it = components.begin(); it != components.end(); ++it) {
+        assert(*it != NULL);
+        out << **it << " ";
+    }
+    out << endl;
+}

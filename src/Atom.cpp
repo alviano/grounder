@@ -80,7 +80,7 @@ Atom::addInstance(
     for(unsigned i = 0; i < terms.size(); ++i)
         tuple->push_back(terms[i].replace(variables));
     predicate.addInstance(tuple);
-    cout << "Atom::addInstance(): " << *this << endl;
+    cerr << "Atom::addInstance(): " << *this << endl;
 }
 
 void
@@ -107,4 +107,22 @@ Atom::bind(
             res.first->second = static_cast<Term*>(tuple[i].clone());
         }
     }
+}
+
+bool
+Atom::print(
+        ostream& out,
+        const unordered_map<string, Term*>& variables) const {
+    out << predicate;
+    Terms tuple;
+    if(terms.size() > 0) {
+        for(unsigned i = 0; i < terms.size(); ++i)
+            tuple.push_back(terms[i].replace(variables));
+        out << "(" << tuple[0];
+        for(unsigned i = 1; i < tuple.size(); ++i) {
+            out << "," << tuple[i];
+        }
+        out << ")";
+    }
+    return predicate.isTrue(tuple);
 }

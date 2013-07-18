@@ -10,7 +10,7 @@
 
 class AspCore2 {
 public:
-    static AspCore2* getInstance();
+    static AspCore2& getInstance();
     static void free();
 
     Program* getProgram() { return program; }

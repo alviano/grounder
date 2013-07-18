@@ -19,6 +19,9 @@ public:
 
     virtual void print(ostream& out) const;
 
+    const Atom& getHead() const { return head; }
+    const Body& getBody() const { return body; }
+
     virtual void addDependencies(DependenciesGraph& graph, bool onlyPositive) const;
     virtual void sort();
     virtual void indexPredicates();
